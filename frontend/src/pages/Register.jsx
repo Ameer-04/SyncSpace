@@ -1,9 +1,8 @@
-import {useState} from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import api from '../api/axios';
 
 function Register() {
-    const navigate = useNavigate();
     const [feedback, setFeedback] = useState({ type: '', text: '' });
     const [formData, setFormData] = useState({
         name: '',
@@ -29,9 +28,6 @@ function Register() {
                 text: 'Registration successful. You can now sign in.',
             });
             setFormData({ name: '', email: '', password: '' });
-            setTimeout(() => {
-                navigate('/login');
-            }, 1200);
         } catch (error) {
             const message =
                 error.response?.data?.message ||
@@ -41,66 +37,95 @@ function Register() {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4">
-            <div className="max-w-md w-full bg-white rounded-lg shadow-md p-8">
-                <h1 className="text-2xl font-semibold text-gray-800 mb-6 text-center">Create your account</h1>
-                {feedback.text ? (
-                    <div
-                        className={`mb-4 rounded-md px-4 py-3 text-sm ${feedback.type === 'success'
-                            ? 'bg-green-50 text-green-700 border border-green-200'
-                            : 'bg-red-50 text-red-700 border border-red-200'
-                        }`}
-                    >
-                        {feedback.text}
+        <div className="min-h-screen overflow-hidden bg-slate-950 text-white relative">
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(59,130,246,0.35),_transparent_35%),radial-gradient(circle_at_top_right,_rgba(34,197,94,0.18),_transparent_30%),linear-gradient(135deg,_#020617_0%,_#0f172a_45%,_#111827_100%)]" />
+            <div className="absolute -left-24 top-24 h-72 w-72 rounded-full bg-sky-500/20 blur-3xl" />
+            <div className="absolute -right-20 bottom-10 h-80 w-80 rounded-full bg-emerald-400/10 blur-3xl" />
+
+            <div className="relative flex min-h-screen items-center justify-center px-4 py-12 sm:px-6 lg:px-8">
+                <div className="w-full max-w-md">
+                    <div className="mb-8 text-center">
+                        <h1 className="mt-3 text-3xl font-semibold tracking-tight text-white sm:text-4xl">Create your account</h1>
+                        <p className="mt-3 text-sm leading-6 text-slate-300">
+                            Join the workspace, keep your progress in sync, and get started in a few quick steps.
+                        </p>
                     </div>
-                ) : null}
-                <form onSubmit={handleSubmit} className="space-y-4">
-                    <div>
-                        <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">Name</label>
-                        <input
-                            type="text"
-                            id="name"
-                            name="name"
-                            value={formData.name}
-                            onChange={handleChange}
-                            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                            placeholder="Your full name"
-                        />
+
+                    <div className="rounded-3xl border border-white/10 bg-white/8 p-6 shadow-2xl shadow-black/30 backdrop-blur-xl sm:p-8">
+                        {feedback.text ? (
+                            <div
+                                className={`mb-5 rounded-2xl border px-4 py-3 text-sm ${feedback.type === 'success'
+                                    ? 'border-emerald-400/30 bg-emerald-400/10 text-emerald-200'
+                                    : 'border-rose-400/30 bg-rose-400/10 text-rose-200'
+                                }`}
+                            >
+                                {feedback.text}
+                            </div>
+                        ) : null}
+
+                        <form onSubmit={handleSubmit} className="space-y-5">
+                            <div>
+                                <label htmlFor="name" className="mb-2 block text-sm font-medium text-slate-200">
+                                    Name
+                                </label>
+                                <input
+                                    type="text"
+                                    id="name"
+                                    name="name"
+                                    value={formData.name}
+                                    onChange={handleChange}
+                                    placeholder="Your name"
+                                    className="w-full rounded-2xl border border-white/10 bg-slate-900/70 px-4 py-3 text-white placeholder:text-slate-500 shadow-inner outline-none transition duration-200 focus:border-sky-400/60 focus:ring-4 focus:ring-sky-400/15"
+                                />
+                            </div>
+
+                            <div>
+                                <label htmlFor="email" className="mb-2 block text-sm font-medium text-slate-200">
+                                    Email address
+                                </label>
+                                <input
+                                    type="email"
+                                    id="email"
+                                    name="email"
+                                    value={formData.email}
+                                    onChange={handleChange}
+                                    placeholder="name@company.com"
+                                    className="w-full rounded-2xl border border-white/10 bg-slate-900/70 px-4 py-3 text-white placeholder:text-slate-500 shadow-inner outline-none transition duration-200 focus:border-sky-400/60 focus:ring-4 focus:ring-sky-400/15"
+                                />
+                            </div>
+
+                            <div>
+                                <label htmlFor="password" className="mb-2 block text-sm font-medium text-slate-200">
+                                    Password
+                                </label>
+                                <input
+                                    type="password"
+                                    id="password"
+                                    name="password"
+                                    value={formData.password}
+                                    onChange={handleChange}
+                                    placeholder="••••••••"
+                                    className="w-full rounded-2xl border border-white/10 bg-slate-900/70 px-4 py-3 text-white placeholder:text-slate-500 shadow-inner outline-none transition duration-200 focus:border-sky-400/60 focus:ring-4 focus:ring-sky-400/15"
+                                />
+                            </div>
+
+                            <button
+                                type="submit"
+                                className="group inline-flex w-full items-center justify-center rounded-2xl bg-gradient-to-r from-sky-500 via-cyan-500 to-emerald-500 px-4 py-3.5 text-sm font-semibold text-white shadow-lg shadow-sky-500/25 transition duration-200 hover:scale-[1.01] hover:shadow-sky-500/35 focus:outline-none focus:ring-4 focus:ring-sky-400/20 disabled:cursor-not-allowed disabled:opacity-70"
+                            >
+                                Register
+                                <span className="ml-2 transition-transform group-hover:translate-x-0.5">→</span>
+                            </button>
+                        </form>
+
+                        <p className="mt-6 text-center text-sm text-slate-300">
+                            Already have an account?{' '}
+                            <Link to="/login" className="font-semibold text-sky-300 transition hover:text-sky-200">
+                                Sign in
+                            </Link>
+                        </p>
                     </div>
-                    <div>
-                        <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">Email</label>
-                        <input
-                            type="email"
-                            id="email"
-                            name="email"
-                            value={formData.email}
-                            onChange={handleChange}
-                            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                            placeholder="you@example.com"
-                        />
-                    </div>
-                    <div>
-                        <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">Password</label>
-                        <input
-                            type="password"
-                            id="password"
-                            name="password"
-                            value={formData.password}
-                            onChange={handleChange}
-                            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                            placeholder="At least 8 characters"
-                        />
-                    </div>
-                    <div>
-                        <button
-                            type="submit"
-                            className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-colors"
-                        >
-                            Register
-                        </button>
-                    </div>
-                </form>
-                <p className="text-xs text-center text-gray-500 mt-4">By creating an account you agree to our Terms and Privacy Policy.</p>
+                </div>
             </div>
         </div>
     );
