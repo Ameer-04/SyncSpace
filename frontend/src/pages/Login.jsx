@@ -28,7 +28,7 @@ function Login()  {
         try {
             const response = await api.post('/auth/login', formData);
             login(response.data.user, response.data.token);
-            navigate('/');
+            navigate('/profile');
         } catch (error) {
             const message =
                 error.response?.data?.message ||

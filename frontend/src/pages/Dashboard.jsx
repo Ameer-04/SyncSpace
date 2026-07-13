@@ -1,10 +1,11 @@
+import DashboardLayout from "../layout/DashboardLayout";
+
 const Dashboard = () => {
-  return (
-    <div>
-      <h1>Dashboard</h1>
-      <p>Welcome to the Dashboard!</p>
-    </div>
-  );
+    return (
+        <DashboardLayout>
+            Dashboard
+        </DashboardLayout>
+    );
 };
 
 export default Dashboard;
