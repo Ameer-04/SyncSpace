@@ -4,7 +4,7 @@ import SidebarProfile from "./SidebarProfile";
 
 const Sidebar = () => {
   return (
-    <aside className="flex h-screen w-[280px] flex-col bg-slate-900 px-5 py-6">
+    <aside className="flex min-h-screen w-[280px] flex-col bg-slate-900 px-5 py-6">
       {/* Logo */}
 
       <div className="mb-10">

@@ -31,7 +31,9 @@ function Register() {
         } catch (error) {
             const message =
                 error.response?.data?.message ||
-                'Unable to connect to the server. Please try again.';
+                error.response?.data?.errors?.[0]?.msg ||
+                'Registration failed. Please check your details and try again.';
+            console.error(error);
             setFeedback({ type: 'error', text: message });
         }
     };
